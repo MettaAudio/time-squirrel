@@ -6,6 +6,16 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+
+group :development do
+  gem 'pry'
+  gem "wirble"
+  gem "hirb"
+  gem "what_methods"
+  gem "awesome_print"
+  gem "interactive_editor"
+end
+
 gem 'jquery-rails'
 gem "unicorn", ">= 4.3.1"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
@@ -24,3 +34,4 @@ gem "quiet_assets", ">= 1.0.2", :group => :development
 gem "figaro", ">= 0.6.3"
 gem "better_errors", ">= 0.7.2", :group => :development
 gem "binding_of_caller", ">= 0.7.1", :group => :development, :platforms => [:mri_19, :rbx]
+gem "foreman"
