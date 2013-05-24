@@ -1,0 +1,13 @@
+<%= simple_form_for(@timer) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :task_id %>
+    <%= f.input :start_time %>
+    <%= f.input :end_time %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

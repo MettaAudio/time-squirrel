@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Task:</b>
+  <%= @timer.task_id %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @timer.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @timer.end_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_timer_path(@timer) %> |
+<%= link_to 'Back', timers_path %>

@@ -1,6 +1,5 @@
-<h1>Listing tasks</h1>
-
-<table>
+<h1>Current Tasks for <%= current_user.name %> </h1>
+<table class='table table-striped'>
   <tr>
     <th>Time</th>
     <th>Issue</th>
@@ -12,7 +11,11 @@
 
 <% @tasks.each do |task| %>
   <tr>
-    <td><%= link_to 'Start', task %></td>
+    <% if task.running_timer? %>
+      <td><%= link_to 'Stop', stop_timer_path(:task_id => task.id) %></td>
+    <% else %>
+      <td><%= link_to 'Start', start_timer_path(:task_id => task.id) %></td>
+    <% end %>
     <td><%= task.issue_id %></td>
     <td><%= task.summary %></td>
     <td><%= link_to 'Show', task %></td>
