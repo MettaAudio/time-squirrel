@@ -12,9 +12,9 @@
 <% @tasks.each do |task| %>
   <tr>
     <% if task.running_timer? %>
-      <td><%= link_to 'Stop', stop_timer_path(:task_id => task.id) %></td>
+      <td><%= link_to '<i class="icon-time stop">'.html_safe, stop_timer_path(:task_id => task.id) %></td>
     <% else %>
-      <td><%= link_to 'Start', start_timer_path(:task_id => task.id) %></td>
+      <td><%= link_to '<i class="icon-time start">'.html_safe, start_timer_path(:task_id => task.id) %></td>
     <% end %>
     <td><%= task.issue_id %></td>
     <td><%= task.summary %></td>

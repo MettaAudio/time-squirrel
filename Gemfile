@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.13'
-gem 'sqlite3'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -8,12 +8,17 @@ group :assets do
 end
 
 group :development do
+  gem 'sqlite3'
   gem 'pry'
   gem "wirble"
   gem "hirb"
   gem "what_methods"
   gem "awesome_print"
   gem "interactive_editor"
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 gem 'jquery-rails'
