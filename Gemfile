@@ -18,9 +18,10 @@ group :development do
 end
 
 group :production do
-  gem 'mysql2'
+  gem 'pg'
 end
 
+gem 'heroku'
 gem 'jquery-rails'
 gem "unicorn", ">= 4.3.1"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
