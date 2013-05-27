@@ -229,6 +229,7 @@ DEPENDENCIES
   hirb
   interactive_editor
   jquery-rails
+  json
   launchy (>= 2.2.0)
   pg
   pry
