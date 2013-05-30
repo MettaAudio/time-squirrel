@@ -1,0 +1,24 @@
+<h1>Projects</h1>
+<table class='table table-striped'>
+  <tr>
+    <th>Title</th>
+    <th>Code</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.title %></td>
+    <td><%= project.code %></td>
+    <td class='project'><%= link_to '<i class="icon-file"></i> '.html_safe, project %></td>
+    <td class='project'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_project_path(project) %></td>
+    <td class='project'><%= link_to '<i class="icon-trash"></i> '.html_safe, project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '<i class="icon-plus-sign"></i> New Project'.html_safe, new_project_path, :class => 'btn btn-mini' %>
