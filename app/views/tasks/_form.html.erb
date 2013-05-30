@@ -2,8 +2,10 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :project_id, collection: Project.all %>
     <%= f.input :issue_id %>
     <%= f.input :summary %>
+    <%= f.input :classification, collection: ['Development', 'Project Management', 'Business Development', 'Infrastructure'] %>
   </div>
 
   <div class="form-actions">

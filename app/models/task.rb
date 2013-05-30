@@ -1,7 +1,8 @@
 class Task < ActiveRecord::Base
-  attr_accessible :issue_id, :summary
+  attr_accessible :issue_id, :summary, :project_id, :classification
   has_many :timers
-  validate :issue_id, :summary, :presence => true
+  belongs_to :project
+  validate :issue_id, :summary, :classification, :presence => true
 
   def running_timers
     timers.where("start_time IS NOT NULL and end_time IS NULL")

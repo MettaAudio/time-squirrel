@@ -80,4 +80,14 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def sync_tasks
+    if Synchronizer.new.sync
+      notice = 'Done!'
+    else
+      notice = 'Not so much'
+    end
+      redirect_to root_path, notice: notice
+    else
+  end
 end

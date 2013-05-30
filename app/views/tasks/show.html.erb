@@ -1,4 +1,8 @@
 <p>
+  <b>Project:</b>
+  <%= @task.project.try(:title) %>
+</p>
+<p>
   <b>Issue:</b>
   <%= @task.issue_id %>
 </p>

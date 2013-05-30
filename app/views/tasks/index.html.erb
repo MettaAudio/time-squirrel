@@ -2,6 +2,7 @@
 <table class='table table-striped'>
   <tr>
     <th>Timer</th>
+    <th>Project</th>
     <th>Issue</th>
     <th>Summary</th>
     <th></th>
@@ -16,6 +17,7 @@
     <% else %>
       <td class='timer'><%= link_to '<i class="icon-time"></i> Start'.html_safe, start_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-success' %></td>
     <% end %>
+    <td class='project'><%= task.project.try(:title) %></td>
     <td class='issue'><%= task.issue_id %></td>
     <td><%= task.summary %></td>
     <td class='task'><%= link_to '<i class="icon-file"></i> '.html_safe, task %></td>
