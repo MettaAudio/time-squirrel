@@ -83,11 +83,10 @@ class TasksController < ApplicationController
 
   def sync_tasks
     if Synchronizer.new.sync
-      notice = 'Done!'
+      redirect_to :back, notice: 'All tasks synchronized!'
     else
-      notice = 'Not so much'
+      redirect_to :back, error: 'There was a problem synchronizing your tasks. Please try again.'
     end
-      redirect_to root_path, notice: notice
     else
   end
 end

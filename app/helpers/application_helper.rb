@@ -12,4 +12,8 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def display_time(elapsed_time)
+    Time.at(elapsed_time).utc.strftime("%H:%M")
+  end
+
 end

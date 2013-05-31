@@ -23,7 +23,7 @@ class TimersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to tasks_path, notice: 'Timer started.'}
+      format.html { redirect_to :back, notice: 'Timer started.'}
       format.json { render json: @timer }
     end
   end
@@ -43,7 +43,7 @@ class TimersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to tasks_path, notice: 'Timer stopped.' }
+      format.html { redirect_to :back, notice: 'Timer stopped.' }
       format.json { render json: @timer, status: :created, location: @timer }
     end
   end

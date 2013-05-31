@@ -1,23 +1,32 @@
-<h1>Projects</h1>
-<table class='table table-striped'>
-  <tr>
-    <th>Title</th>
-    <th>Code</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @projects.each do |project| %>
-  <tr>
-    <td><%= project.title %></td>
-    <td><%= project.code %></td>
-    <td class='project'><%= link_to '<i class="icon-file"></i> '.html_safe, project %></td>
-    <td class='project'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_project_path(project) %></td>
-    <td class='project'><%= link_to '<i class="icon-trash"></i> '.html_safe, project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <h1><%= project.title %> <small><%= project.code %></small></h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Timer</th>
+      <th>Issue</th>
+      <th>Summary</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% project.tasks.each do |task| %>
+      <tr>
+        <% if task.running_timer? %>
+          <td class='timer'><%= link_to '<i class="icon-time"></i> Stop'.html_safe, stop_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-danger' %></td>
+        <% else %>
+          <td class='timer'><%= link_to '<i class="icon-time"></i> Start'.html_safe, start_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-success' %></td>
+        <% end %>
+        <td class='issue'><%= task.issue_id %></td>
+        <td><%= task.summary %></td>
+        <td class='task'><%= link_to '<i class="icon-file"></i> '.html_safe, task %></td>
+        <td class='task'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_task_path(task) %></td>
+        <td class='task'><%= link_to '<i class="icon-trash"></i> '.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
 <% end %>
-</table>
 
 <br />
 

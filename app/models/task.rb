@@ -22,4 +22,39 @@ class Task < ActiveRecord::Base
       timer.stop
     end
   end
+
+  def time_events_in_range(start_time, end_time)
+    timers.after(start_time).before(end_time)
+  end
+
+  def total_time_in_range(start_time, end_time)
+    total = 0.0
+    time_events_in_range(start_time, end_time).each do |timer|
+      total += timer.time_elapsed
+    end
+
+    total
+  end
+
+  def time_events_this_week
+    timers.this_week
+  end
+
+  def total_time_this_week
+    total = 0.0
+    time_events_this_week.each do |timer|
+      total += timer.time_elapsed
+    end
+
+    total
+  end
+
+  def total_time
+    total = 0.0
+    timers.each do |timer|
+      total += timer.time_elapsed
+    end
+
+    total
+  end
 end
