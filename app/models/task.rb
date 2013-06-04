@@ -4,6 +4,8 @@ class Task < ActiveRecord::Base
   belongs_to :project
   validate :issue_id, :summary, :classification, :presence => true
 
+  scope :with_timers, joins(:timers).group('id')
+
   def running_timers
     timers.where("start_time IS NOT NULL and end_time IS NULL")
   end

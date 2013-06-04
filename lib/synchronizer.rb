@@ -1,7 +1,12 @@
 class Synchronizer
+  attr_reader :current_user
+
+  def initialize(current_user)
+    @current_user = current_user
+  end
 
   def jira
-    @jira = Jira.new
+    @jira = Jira.new(current_user)
   end
 
   def sync

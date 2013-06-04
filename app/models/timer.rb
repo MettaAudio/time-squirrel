@@ -16,6 +16,6 @@ class Timer < ActiveRecord::Base
   end
 
   def self.total_time_this_week
-    this_week.collect{|timer| timer.time_elapsed}.inject {|sum,x| sum + x}
+    this_week.collect{|timer| timer.time_elapsed}.inject {|sum,x| sum + x} || 0.0
   end
 end

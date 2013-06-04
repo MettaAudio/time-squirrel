@@ -3,13 +3,14 @@ class Jira
   require 'json'
   default_params :output => 'json'
 
-  attr_reader :base_uri, :fields, :jql, :max_results
+  attr_reader :base_uri, :fields, :jql, :max_results, :current_user
 
-  def initialize
-    @base_uri    = 'https://railsdog.atlassian.net/rest/api/latest/'
-    @fields      = ["key", "summary", "project"]
-    @jql         = "assignee='#{user_id}' and resolution='unresolved' and issuetype in (Bug, Improvement, 'New Feature', Story, Task, Sub-task, 'Technical task')"
-    @max_results = 5
+  def initialize(current_user)
+    @current_user = current_user
+    @base_uri     = 'https://railsdog.atlassian.net/rest/api/latest/'
+    @fields       = ["key", "summary", "project"]
+    @jql          = "assignee='#{user_id}' and resolution='unresolved' and issuetype in (Bug, Improvement, 'New Feature', Story, Task, Sub-task, 'Technical task')"
+    @max_results  = 5
   end
 
   def retrieve_all_issues
@@ -70,6 +71,7 @@ class Jira
   end
 
   def projects
+    ## TODO - begin rescue for error
     response = self.class.get(project_uri,
                     :basic_auth => { :username => user_id, :password => secret },
                     :headers => {'Content-Type' => 'application/json'} )
@@ -83,17 +85,10 @@ class Jira
   end
 
   def user_id
-    user.jira_user_id
+    current_user.jira_user_id
   end
 
   def secret
-    user.jira_secret
+    current_user.jira_secret
   end
-
-  def user
-    return current_user if defined?(current_user)
-    Rails.logger.error "[ERROR] - There isn't a current user specified"
-    User.find_by_email('jking@railsdog.com')
-  end
-
 end

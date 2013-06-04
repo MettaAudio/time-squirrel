@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.with_timers
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,11 +82,14 @@ class TasksController < ApplicationController
   end
 
   def sync_tasks
-    if Synchronizer.new.sync
-      redirect_to :back, notice: 'All tasks synchronized!'
+    if !current_user
+      redirect_to new_user_session_path, notice: 'You must be logged in to sync tasks with Jira'
     else
-      redirect_to :back, error: 'There was a problem synchronizing your tasks. Please try again.'
+      if Synchronizer.new(current_user).sync
+        redirect_to :back, notice: 'All tasks synchronized!'
+      else
+        redirect_to :back, error: 'There was a problem synchronizing your tasks. Please try again.'
+      end
     end
-    else
   end
 end
