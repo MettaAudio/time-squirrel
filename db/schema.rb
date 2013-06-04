@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528200637) do
+ActiveRecord::Schema.define(:version => 20130531015839) do
 
   create_table "projects", :force => true do |t|
     t.string   "code"
@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(:version => 20130528200637) do
     t.string   "name"
     t.string   "jira_user_id"
     t.string   "jira_secret"
+    t.string   "harvest_subdomain"
+    t.string   "harvest_username"
+    t.string   "harvest_password"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
