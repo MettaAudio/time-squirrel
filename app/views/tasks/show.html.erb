@@ -1,17 +1,4 @@
-<p>
-  <b>Project:</b>
-  <%= @task.project.try(:title) %>
-</p>
-<p>
-  <b>Issue:</b>
-  <%= @task.issue_id %>
-</p>
-
-<p>
-  <b>Summary:</b>
-  <%= @task.summary %>
-</p>
-
+<%= render partial: "task_summary", :locals => { :task => @task } %>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

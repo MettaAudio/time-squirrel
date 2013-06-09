@@ -1,0 +1,32 @@
+<h3><%= task.summary %> <small><%= task.project_code %>&nbsp;&nbsp;&nbsp;<%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_task_path(task) %></small></h3>
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Timer Start</th>
+      <th>Timer End</th>
+      <th>Duration</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% task.timers.each do |timer| %>
+      <tr>
+        <td><%= day_hour_minute(timer.start_time) %></td>
+        <td><%= day_hour_minute(timer.end_time) %></td>
+        <td><%= formatted_duration(timer.time_elapsed) %></td>
+        <td class='task'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_timer_path(timer) %></td>
+        <td class='task'><%= link_to '<i class="icon-trash"></i> '.html_safe, timer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan='6'>
+        <%= link_to 'Manual Timer', new_timer_path, :class =>'btn btn-mini' %>
+      </td>
+    </tr>
+  </tfoot>
+
+</table>

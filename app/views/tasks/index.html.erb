@@ -1,19 +1,6 @@
 <% @tasks.each do |task| %>
-<h3><%= task.summary %></h3>
-<table class='table table-striped'>
-  <tr>
-    <th>Timer Start</th>
-    <th>Timer End</th>
-  </tr>
-
-  <% task.timers.each do |timer| %>
-    <tr>
-      <td><%= timer.start_time %></td>
-      <td><%= timer.end_time %></td>
-    </tr>
-  <% end %>
+  <%= render partial: "task_summary", :locals => { :task => task } %>
 <% end %>
-</table>
 
 <br />
 
