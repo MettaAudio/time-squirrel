@@ -2,9 +2,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :task_id %>
-    <%= f.input :start_time %>
-    <%= f.input :end_time %>
+    <%= f.input :start_time, :start_year => (Date.today.year), :end_year => (Date.today.year), :order => [:month, :day, :year], :label => 'Start Time', :autofocus => true %>
+    <%= f.input :end_time, :order => [:month, :day, :year], :label => 'End Time' %>
   </div>
 
   <div class="form-actions">

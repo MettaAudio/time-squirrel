@@ -1,20 +1,25 @@
-<p id="notice"><%= notice %></p>
+<h3><%= @timer.task.summary %></h3>
+<% if @timer.same_day? %>
+  <h4><%= day(@timer.start_time) %></h4>
+<% else %>
+  <p class='warning'></p>
+<% end %>
 
-<p>
-  <b>Task:</b>
-  <%= @timer.task_id %>
-</p>
+<div class="row">
+  <div class="span2">
+    <p>
+      <%= hour_minute(@timer.start_time) %>
+    </p>
+  </div>
 
-<p>
-  <b>Start time:</b>
-  <%= @timer.start_time %>
-</p>
-
-<p>
-  <b>End time:</b>
-  <%= @timer.end_time %>
-</p>
+  <div class="span2">
+    <p>
+      <%= hour_minute(@timer.end_time) %>
+    </p>
+  </div>
+</div>
 
 
-<%= link_to 'Edit', edit_timer_path(@timer) %> |
-<%= link_to 'Back', timers_path %>
+
+
+<%= link_to 'Edit', edit_timer_path(@timer) %>
