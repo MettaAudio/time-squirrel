@@ -1,0 +1,38 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Timer</th>
+      <th>Issue</th>
+      <th>Summary</th>
+      <th>Week</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% project.tasks.each do |task| %>
+      <tr>
+        <% if task.running_timer? %>
+          <td class='timer'><%= link_to '<i class="icon-time"></i> Stop'.html_safe, stop_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-danger' %></td>
+        <% else %>
+          <td class='timer'><%= link_to '<i class="icon-time"></i> Start'.html_safe, start_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-success' %></td>
+        <% end %>
+        <td class='issue'><%= task.issue_id %></td>
+        <td><%= link_to task.summary, task %></td>
+        <td class='timer'><%= formatted_duration(task.timers.total_time_this_week) %></td>
+        <td class='task'><%= link_to '<i class="icon-file"></i> '.html_safe, task %></td>
+        <td class='task'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_task_path(task) %></td>
+        <td class='task'><%= link_to '<i class="icon-trash"></i> '.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan='6'>
+        <%= link_to 'New Task', new_task_path, :class =>'btn btn-mini' %>
+      </td>
+    </tr>
+  </tfoot>
+</table>
