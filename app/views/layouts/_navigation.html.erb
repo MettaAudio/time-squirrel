@@ -27,8 +27,20 @@
       <%= link_to 'Projects', projects_path %>
     </li>
     <li>
-      <%= link_to 'Tasks', tasks_path %>
+      <%= link_to 'Today', daily_path %>
+    </li>
+    <li>
+      <%= link_to 'This Week', weekly_path %>
     </li>
   <% end %>
-
 </ul>
+<% if Timer.running_timers.present? %>
+  <ul class='nav pull-right'>
+    <% Timer.running_timers.each do |timer| %>
+      <li>
+        <%= link_to timer.task.project.code, task_path(timer.task) %>
+      </li>
+    <% end %>
+  </ul>
+
+<% end %>

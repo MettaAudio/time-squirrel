@@ -38,11 +38,13 @@ class Jira
   end
 
   def issues
-    response = self.class.post(issue_uri,
-                    :basic_auth => { :username => user_id, :password => secret },
-                    :body       => issue_payload,
-                    :headers => {'Content-Type' => 'application/json'} )
-    JSON.parse(response.body)
+    @_issue || begin
+      response = self.class.post(issue_uri,
+                      :basic_auth => { :username => user_id, :password => secret },
+                      :body       => issue_payload,
+                      :headers => {'Content-Type' => 'application/json'} )
+      @_issue = JSON.parse(response.body)
+    end
   end
 
   def issue_uri
@@ -71,11 +73,12 @@ class Jira
   end
 
   def projects
-    ## TODO - begin rescue for error
-    response = self.class.get(project_uri,
-                    :basic_auth => { :username => user_id, :password => secret },
-                    :headers => {'Content-Type' => 'application/json'} )
-    JSON.parse(response.body)
+    @_projects || begin
+      response = self.class.get(project_uri,
+                      :basic_auth => { :username => user_id, :password => secret },
+                      :headers => {'Content-Type' => 'application/json'} )
+      @_projects = JSON.parse(response.body)
+    end
   end
 
   def issue_payload

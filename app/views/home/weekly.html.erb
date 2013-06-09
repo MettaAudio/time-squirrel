@@ -1,0 +1,10 @@
+<h3>Total to This Week</h3>
+<% @projects.each do |project| %>
+<% next if project.tasks.count == 0 %>
+  <h4><%= project.title %></h4>
+  <% project.tasks.each do |task| %>
+  <% next if task.timers.count == 0 %>
+  <p><%= task.summary %></p>
+    <p><%= formatted_duration(task.total_time_this_week) %></p>
+  <% end %>
+<% end %>

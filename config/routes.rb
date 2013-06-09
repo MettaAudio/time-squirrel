@@ -3,6 +3,8 @@ TaskRabbit::Application.routes.draw do
   resources :projects
   resources :tasks
   resources :timers, :expect => [:new, :index]
+  match "weekly_total" => "home#weekly", :as => :weekly
+  match "daily_total" => "home#daily", :as => :daily
 
   match "start_timer" => "timers#start_timer", :as => :start_timer
   match "stop_timer"  => "timers#stop_timer",  :as => :stop_timer

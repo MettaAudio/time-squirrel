@@ -12,8 +12,20 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def display_time(elapsed_time)
-    Time.at(elapsed_time).utc.strftime("%H:%M")
+  def formatted_duration(elapsed_time)
+    elapsed_time.present? ? Time.at(elapsed_time).utc.strftime("%H:%M") : '-'
+  end
+
+  def day_hour_minute(time)
+    time.present? ? time.in_time_zone("Eastern Time (US & Canada)").strftime('%a, %b %e, %l:%M %p') : '-'
+  end
+
+  def hour_minute(time)
+    time.present? ? time.in_time_zone("Eastern Time (US & Canada)").strftime('%l:%M %p') : '-'
+  end
+
+  def day(time)
+    time.in_time_zone("Eastern Time (US & Canada)").strftime('%A, %B %e')
   end
 
 end

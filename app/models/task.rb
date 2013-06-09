@@ -10,6 +10,10 @@ class Task < ActiveRecord::Base
     timers.where("start_time IS NOT NULL and end_time IS NULL")
   end
 
+  def project_code
+    project.code
+  end
+
   def running_timer?
     running_timers.count != 0
   end
@@ -40,6 +44,15 @@ class Task < ActiveRecord::Base
 
   def time_events_this_week
     timers.this_week
+  end
+
+  def total_time_this_day(date = Date.today)
+    total = 0.0
+
+    timers.after(date.beginning_of_day).before(date.end_of_day).each do |timer|
+      total += timer.time_elapsed
+    end
+    total
   end
 
   def total_time_this_week
