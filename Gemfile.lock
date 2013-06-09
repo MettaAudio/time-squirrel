@@ -235,6 +235,7 @@ DEPENDENCIES
   interactive_editor
   jquery-rails
   launchy (>= 2.2.0)
+  nokogiri
   pg
   pry
   quiet_assets (>= 1.0.2)
