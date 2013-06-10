@@ -1,10 +1,27 @@
 <h3>Total to Today</h3>
 <% @projects.each do |project| %>
-<% next if project.tasks.count == 0 %>
+<% next if project.tasks.collect { |t| t if t.total_time_this_day > 0 }.compact.count == 0 %>
   <h4><%= project.title %></h4>
-  <% project.tasks.each do |task| %>
-    <% next if task.total_time_this_day == 0.0 %>
-    <p><%= task.summary %></p>
-    <p><%= formatted_duration(task.total_time_this_day) %></p>
-  <% end %>
+  <table class="table table-striped">
+
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% project.tasks.each do |task| %>
+      <% next if task.total_time_this_day == 0.0 %>
+        <tr>
+          <td><%= task.summary %></td>
+          <td class='timer'><%= formatted_duration(task.total_time_this_day) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
 <% end %>

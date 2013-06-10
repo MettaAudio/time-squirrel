@@ -1,10 +1,27 @@
-<h3>Total to This Week</h3>
+<h2>Weekly Total</h2>
 <% @projects.each do |project| %>
 <% next if project.tasks.count == 0 %>
-  <h4><%= project.title %></h4>
-  <% project.tasks.each do |task| %>
-  <% next if task.timers.count == 0 %>
-  <p><%= task.summary %></p>
-    <p><%= formatted_duration(task.total_time_this_week) %></p>
-  <% end %>
+  <h3><%= project.title %></h3>
+  <table class="table table-striped">
+
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% project.tasks.each do |task| %>
+      <% next if task.timers.count == 0 %>
+        <tr>
+          <td><%= task.summary %></td>
+          <td class='timer'><%= formatted_duration(task.total_time_this_week) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
 <% end %>
