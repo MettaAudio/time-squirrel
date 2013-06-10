@@ -38,7 +38,7 @@
   <ul class='nav pull-right'>
     <% Timer.running_timers.each do |timer| %>
       <li>
-        <%= link_to timer.task.project.code, task_path(timer.task) %>
+        <%= link_to "<i class='icon-time'></i> <span class='label label-important'>#{formatted_duration(timer.time_elapsed)}</span>".html_safe, task_path(timer.task) %>
       </li>
     <% end %>
   </ul>
