@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-TaskRabbit::Application.load_tasks
+TimeSquirrel::Application.load_tasks

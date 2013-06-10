@@ -1,4 +1,4 @@
-TaskRabbit::Application.routes.draw do
+TimeSquirrel::Application.routes.draw do
 
   resources :projects
   resources :tasks

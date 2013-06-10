@@ -1,4 +1,4 @@
-class TaskRabbitHarvest
+class TimeSquirrelHarvest
   attr_reader :harvest
 
   def initialize(current_user)
