@@ -19,7 +19,7 @@
         <% else %>
           <td class='timer'><%= link_to '<i class="icon-time"></i> Start'.html_safe, start_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-success' %></td>
         <% end %>
-        <td class='issue'><%= task.issue_id %></td>
+        <td class='issue'><%= task.issue_id.present? ? link_to(task.issue_id, "https://railsdog.atlassian.net/browse/#{task.issue_id}", html_options = {:target => '_blank'}).html_safe : '' %></td>
         <td><%= link_to task.summary, task %></td>
         <td class='timer'><%= formatted_duration(task.timers.total_time_this_week) %></td>
         <td class='task'><%= link_to '<i class="icon-file"></i> '.html_safe, task %></td>

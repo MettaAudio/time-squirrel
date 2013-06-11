@@ -46,7 +46,7 @@ class Task < ActiveRecord::Base
     timers.this_week
   end
 
-  def total_time_this_day(date = Date.today)
+  def total_time_on_day(date = Date.today)
     total = 0.0
 
     timers.after(date.beginning_of_day).before(date.end_of_day).each do |timer|
