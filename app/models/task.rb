@@ -1,9 +1,10 @@
 class Task < ActiveRecord::Base
-  attr_accessible :issue_id, :summary, :project_id, :classification
+  attr_accessible :issue_id, :summary, :project_id, :classification, :active
   has_many :timers
   belongs_to :project
   validate :issue_id, :summary, :classification, :presence => true
 
+  scope :active, -> { where('active == ?', true) }
   scope :with_timers, joins(:timers).group('id')
 
   def running_timers

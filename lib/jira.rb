@@ -8,9 +8,9 @@ class Jira
   def initialize(current_user)
     @current_user = current_user
     @base_uri     = 'https://railsdog.atlassian.net/rest/api/latest/'
-    @fields       = ["key", "summary", "project"]
-    @jql          = "assignee='#{user_id}' and resolution='unresolved' and issuetype in (Bug, Improvement, 'New Feature', Story, Task, Sub-task, 'Technical task')"
-    @max_results  = 5
+    @fields       = ["key", "summary", "project", "status"]
+    @jql          = "assignee='#{user_id}' and issuetype in (Bug, Improvement, 'New Feature', Story, Task, Sub-task, 'Technical task') and updated > #{Date.today - 14}"
+    @max_results  = 50
   end
 
   def retrieve_all_issues
@@ -22,6 +22,7 @@ class Jira
           :issue_detail => {
             :issue_id => issue["key"],
             :summary  => issue["fields"]["summary"],
+            :active   => (issue["fields"]["status"]["name"] != "Resolved")
           }
         })
         parsed_results << parsed_issue

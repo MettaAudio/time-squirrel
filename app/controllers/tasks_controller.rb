@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.with_timers
+    @tasks = Task.active.with_timers
 
     respond_to do |format|
       format.html # index.html.erb
