@@ -5,6 +5,7 @@ class HomeController < ApplicationController
 
   def daily
     @projects = Project.all
+    @total_time = Timer.total_time_on_day(Time.now)
   end
 
   def weekly

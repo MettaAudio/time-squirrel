@@ -1,4 +1,14 @@
 <h3>Total to Today</h3>
+<div class="row">
+  <div class="span3 well">
+    <p class='lead'>Total Time: <%= formatted_duration(@total_time) %></p>
+  </div>
+
+  <div class="span3 well">
+    <p class='lead'>Total Value: $<%= (((@total_time/60.0)/60.0) * 85.0).round(2) %></p>
+  </div>
+</div>
+
 <% @projects.each do |project| %>
 <% next if project.tasks.collect { |t| t if t.total_time_on_day > 0 }.compact.count == 0 %>
   <h4><%= project.title %></h4>

@@ -20,6 +20,10 @@ class Timer < ActiveRecord::Base
     start_time.day == end_time.day
   end
 
+  def self.total_time_on_day(date = Time.now)
+    after(date.beginning_of_day).before(date.end_of_day).collect{|timer| timer.time_elapsed}.inject {|sum,x| sum + x} || 0.0
+  end
+
   def self.total_time_this_week
     this_week.collect{|timer| timer.time_elapsed}.inject {|sum,x| sum + x} || 0.0
   end
