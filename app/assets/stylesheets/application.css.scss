@@ -50,3 +50,48 @@ $double_digit: 55px;
     width: $double_digit;
   }
 }
+
+.timeline, .hour_marker {
+  position: relative;
+  height: 25px;
+  background-color: #EEE;
+  li {
+    height: 21px;
+    padding-top: 2px;
+    z-index: 100;
+    position: absolute;
+    background-color: green;
+    list-style-type: none;
+    text-align: center;
+    opacity: .65;
+    border: 1px solid #CCC;
+    a {
+      color: #FFF;
+    }
+  }
+}
+
+.times {
+  position: relative;
+  height: 19px;
+  top: -35px;
+  li {
+    height: 32px;
+    position: absolute;
+    list-style-type: none;
+    border-style: dotted;
+    border-color: #CCC;
+    border-width: 0;
+    border-left-width: 1px;
+  }
+}
+
+.hour_marker {
+  top: -34px;
+  left : -21px;
+  background-color: transparent;
+  li {
+    border: 0px;
+    background-color: transparent;
+  }
+}

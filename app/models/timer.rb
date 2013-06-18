@@ -6,6 +6,7 @@ class Timer < ActiveRecord::Base
   scope :before, ->(end_time)   { where("end_time <= ?", end_time) }
   scope :after,  ->(start_time) { where("start_time >= ?", start_time) }
   scope :this_week, -> { self.after(Time.now.at_beginning_of_week).before(Time.now.at_end_of_week) }
+  scope :on_day, ->(date) { where("start_time >= ? AND start_time <= ?", date.beginning_of_day, date.end_of_day) }
   scope :running_timers, -> { where("start_time IS NOT NULL and end_time IS NULL") }
 
   def stop
@@ -30,5 +31,18 @@ class Timer < ActiveRecord::Base
 
   def task_summary
     task.summary
+  end
+
+  # Graph methods
+
+  def width
+    (time_elapsed/60.0/10.8).round(2)
+  end
+
+  def offset
+    # 6am
+    six_am = start_time.beginning_of_day + 6.hours
+    diff = start_time + 1.hour - six_am
+    (diff/60.0/10.8).round(2)
   end
 end

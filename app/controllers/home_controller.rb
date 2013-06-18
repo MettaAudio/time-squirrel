@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     @date = params[:day].present? ? Date.parse(params[:day]) : Date.today
     @projects = Project.all
     @total_time = Timer.total_time_on_day(@date)
+    @timers = Timer.on_day(@date)
   end
 
   def weekly
