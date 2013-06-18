@@ -1,34 +1,36 @@
-<h3>Total to Today</h3>
+<h3>Total for <%= @date == Date.today ? 'Today' : @date.to_s %></h3>
 <div class="row">
   <div class="span3 well">
     <p class='lead'>Total Time: <%= formatted_duration(@total_time) %></p>
   </div>
 
   <div class="span3 well">
-    <p class='lead'>Total Value: $<%= (((@total_time/60.0)/60.0) * 85.0).round(2) %></p>
+    <p class='lead'>Total Value:  <%= number_to_currency(((@total_time/60.0)/60.0) * 85.0) %></p>
   </div>
 </div>
 
 <% @projects.each do |project| %>
-<% next if project.tasks.collect { |t| t if t.total_time_on_day > 0 }.compact.count == 0 %>
+<% next if project.tasks.collect { |t| t if t.total_time_on_day(@date) > 0 }.compact.count == 0 %>
   <h4><%= project.title %></h4>
   <table class="table table-striped">
 
     <thead>
       <tr>
-        <th>Task</th>
         <th>Issue ID</th>
+        <th>Classification</th>
+        <th>Task</th>
         <th>Total</th>
       </tr>
     </thead>
 
     <tbody>
       <% project.tasks.each do |task| %>
-      <% next if task.total_time_on_day == 0.0 %>
+      <% next if task.total_time_on_day(@date) == 0.0 %>
         <tr>
-          <td><%= task.summary %></td>
           <td class='timer'><%= task.issue_id %></td>
-          <td class='timer'><%= formatted_duration(task.total_time_on_day) %></td>
+          <td class='project'><%= task.classification %></td>
+          <td><%= task.summary %></td>
+          <td class='timer'><%= formatted_duration(task.total_time_on_day(@date)) %></td>
         </tr>
       <% end %>
     </tbody>

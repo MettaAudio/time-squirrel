@@ -28,4 +28,8 @@ module ApplicationHelper
     time.in_time_zone("Eastern Time (US & Canada)").strftime('%A, %B %e')
   end
 
+  def days_ago(number)
+    Date.today - number.days
+  end
+
 end

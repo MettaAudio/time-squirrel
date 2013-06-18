@@ -30,6 +30,12 @@
                 <h3>Quick Links</h3>
                 <%= link_to "Sync with Jira", sync_tasks_path %>
                 <p>Sync with Harvest</p>
+                <hr>
+                <h4>Daily Totals</h4>
+                <p><%= link_to 'Today', daily_path %></p>
+                <% (1..6).each do |i| %>
+                  <p><%= link_to days_ago(i).strftime('%A'), daily_path(:day => days_ago(i)) %></p>
+                <% end %>
               </div>
             </div>
           </div>

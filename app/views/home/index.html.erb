@@ -5,5 +5,5 @@
 </div>
 
 <div class="span3 well">
-  <p class='lead'>Total Value: $<%= (((@total_time/60.0)/60.0) * 85.0).round(2) %></p>
+  <p class='lead'>Total Value: <%= number_to_currency(((@total_time/60.0)/60.0) * 85.0) %></p>
 </div>

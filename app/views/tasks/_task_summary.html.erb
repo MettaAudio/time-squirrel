@@ -23,10 +23,15 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan='6'>
-        <%= link_to 'Manual Timer', new_timer_path, :class =>'btn btn-mini' %>
+      <td colspan='2'>
+        Total
       </td>
+      <td>
+        <%= formatted_duration(task.total_time) %>
+      </td>
+      <td colspan='2'></td>
     </tr>
   </tfoot>
 
 </table>
+<%= link_to 'Manual Timer', new_timer_path, :class =>'btn btn-mini' %> <br><br>
