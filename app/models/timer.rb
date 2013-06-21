@@ -9,6 +9,12 @@ class Timer < ActiveRecord::Base
   scope :on_day, ->(date) { where("start_time >= ? AND start_time <= ?", date.beginning_of_day, date.end_of_day) }
   scope :running_timers, -> { where("start_time IS NOT NULL and end_time IS NULL") }
 
+  def self.stop_all_running_timers
+    running_timers.each do |timer|
+      timer.stop
+    end
+  end
+
   def stop
     update_attribute(:end_time, Time.now)
   end

@@ -20,6 +20,7 @@ class Task < ActiveRecord::Base
   end
 
   def start_new_timer
+    stop_running_timer
     timers.create!(:start_time => Time.now)
   end
 

@@ -12,6 +12,7 @@ class TimersController < ApplicationController
 
   # GET /timers/start
   def start_timer
+    Timer.stop_all_running_timers
     @task = Task.find(params[:task_id])
     if @task && @task.running_timer?
       @task.stop_running_timer
