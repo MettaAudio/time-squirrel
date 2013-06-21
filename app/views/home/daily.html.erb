@@ -1,10 +1,10 @@
-<h3>Total for <%= @date == Date.today ? 'Today' : @date.to_s %></h3>
+<h3>Total for <%= @date == Date.today ? 'Today' : @date.strftime('%A, %B %e') %></h3>
 <div class="row">
   <div class="span9">
     <ul class='timeline'>
     <% @timers.each do |timer| %>
       <li style="width:<%= timer.width %>%;margin-left:<%= timer.offset %>%;">
-        <%= link_to (timer.time_elapsed > 3400 ? formatted_duration(timer.time_elapsed) : '&nbsp;'.html_safe), task_path(timer.task), 'data-toggle' => 'tooltip', 'title' => formatted_duration(timer.time_elapsed) %>
+        <%= link_to '', task_path(timer.task), 'data-toggle' => 'tooltip', 'title' => formatted_duration(timer.time_elapsed) %>
       </li>
     <% end %>
     </ul>
@@ -23,7 +23,7 @@
       <% end %>
     </ul>
     <ul class="hour_marker">
-      <% ['6am',7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11].each_with_index do |time, i| %>
+      <% [6,7,8,9,10,11,'Noon',1,2,3,4,5,6,7,8,9,10,11].each_with_index do |time, i| %>
         <li style="width:5.56%;margin-left:<%= 5.56 * i %>%;"><%= time %></li>
       <% end %>
     </ul>

@@ -65,8 +65,11 @@ $double_digit: 55px;
     text-align: center;
     opacity: .65;
     border: 1px solid #CCC;
+    border-radius: 4px;
     a {
-      color: #FFF;
+      display: block;
+      width: 100%;
+      height: 100%;
     }
   }
 }
