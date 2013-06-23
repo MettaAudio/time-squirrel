@@ -41,7 +41,7 @@
 </div>
 
 <% @projects.each do |project| %>
-<% next if project.tasks.collect { |t| t if t.total_time_on_day(@date) > 0 }.compact.count == 0 %>
+<% next if project.tasks.with_timers_on_day(@date).blank? %>
   <h4><%= project.title %></h4>
   <table class="table table-striped">
 
@@ -55,8 +55,7 @@
     </thead>
 
     <tbody>
-      <% project.tasks.each do |task| %>
-      <% next if task.total_time_on_day(@date) == 0.0 %>
+      <% project.tasks.with_timers_on_day(@date).each do |task| %>
         <tr>
           <td class='timer'><%= task.issue_id %></td>
           <td class='project'><%= task.classification %></td>
