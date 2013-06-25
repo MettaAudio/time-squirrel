@@ -40,6 +40,10 @@
   </div>
 </div>
 
+<h4><%= link_to 'Push to Harvest', push_harvest_entries_path(:date => @date)  %></h4>
+
+<hr>
+
 <% @projects.each do |project| %>
 <% next if project.tasks.with_timers_on_day(@date).blank? %>
   <h4><%= project.title %></h4>

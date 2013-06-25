@@ -2,15 +2,15 @@ class SyncController < ApplicationController
 before_filter :authenticate_user!
 
   def sync_jira_tasks
-    if JiraSynchronizer.new(current_user).sync
+    if JiraSynchronizer.new({:current_user => current_user}).sync
       redirect_to :back, notice: 'All tasks synchronized!'
     else
-      redirect_to :back, error: 'There was a problem synchronizing your tasks. Please try again.'
+      redirect_to :back, alert: 'There was a problem synchronizing your tasks. Please try again.'
     end
   end
 
   def sync_harvest_tasks
-    if HarvestSynchronizer.new(current_user).sync
+    if HarvestSynchronizer.new({:current_user => current_user}).sync
       unlinked_project = HarvestProject.without_ts_project
       if unlinked_project.count != 0
         @harvest_project = unlinked_project.first
@@ -19,8 +19,16 @@ before_filter :authenticate_user!
         redirect_to :back, notice: 'All Harvest projects and tasks synchronized!'
       end
     else
-      redirect_to :back, error: 'There was a problem synchronizing with your Harvest. Please try again.'
+      redirect_to :back, alert: 'There was a problem synchronizing with your Harvest. Please try again.'
     end
 
+  end
+
+  def push_harvest_entries
+    if HarvestPusher.new({:current_user => current_user, :date => params[:date]}).push_harvest_entries
+      redirect_to :back, notice: "You've successfully pushed your tasks to Harvest!"
+    else
+      redirect_to :back, alert: "Warning! Your time was not pushed to Harvest."
+    end
   end
 end

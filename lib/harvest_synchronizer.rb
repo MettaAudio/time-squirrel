@@ -1,8 +1,8 @@
 class HarvestSynchronizer
-  attr_reader :current_user
+  attr_reader :current_user, :date
 
-  def initialize(current_user)
-    @current_user = current_user
+  def initialize(args)
+    @current_user = args[:current_user]
   end
 
   def harvest

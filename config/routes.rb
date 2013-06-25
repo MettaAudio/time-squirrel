@@ -13,6 +13,7 @@ TimeSquirrel::Application.routes.draw do
 
   match 'sync_jira_tasks' => "sync#sync_jira_tasks", :as => :sync_jira
   match 'sync_harvest_tasks' => "sync#sync_harvest_tasks", :as => :sync_harvest
+  match 'push_harvest_entries' => "sync#push_harvest_entries", :as => :push_harvest_entries
 
   authenticated :user do
     root :to => 'home#index'
