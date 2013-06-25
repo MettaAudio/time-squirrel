@@ -12,7 +12,8 @@
   </thead>
 
   <tbody>
-    <% project.tasks.active.each do |task| %>
+    <% @tasks.each do |task| %>
+    <% next if task.project_id != project.id %>
       <tr>
         <% if task.running_timer? %>
           <td class='timer'><%= link_to '<i class="icon-time"></i> Stop'.html_safe, stop_timer_path(:task_id => task.id), :class => 'btn btn-mini btn-danger' %></td>

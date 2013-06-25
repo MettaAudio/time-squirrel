@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130625022324) do
+ActiveRecord::Schema.define(:version => 20130625025548) do
 
   create_table "harvest_projects", :force => true do |t|
     t.integer  "project_id"
@@ -51,11 +51,11 @@ ActiveRecord::Schema.define(:version => 20130625022324) do
   create_table "tasks", :force => true do |t|
     t.string   "issue_id"
     t.string   "summary"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "project_id"
-    t.string   "classification", :default => "Development"
-    t.boolean  "active",         :default => true
+    t.boolean  "active",          :default => true
+    t.integer  "harvest_task_id"
   end
 
   create_table "timers", :force => true do |t|

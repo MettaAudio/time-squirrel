@@ -1,8 +1,9 @@
 class Task < ActiveRecord::Base
-  attr_accessible :issue_id, :summary, :project_id, :classification, :active
+  attr_accessible :issue_id, :summary, :project_id, :active, :harvest_task_id
   has_many :timers
   belongs_to :project
-  validate :issue_id, :summary, :classification, :presence => true
+  belongs_to :harvest_task
+  validate :issue_id, :summary, :presence => true
 
   scope :active, -> { where('active == ?', true) }
   scope :with_timers, joins(:timers).group('id')
@@ -74,5 +75,13 @@ class Task < ActiveRecord::Base
     end
 
     total
+  end
+
+  def harvest_project_tasks
+    project.harvest_project.harvest_tasks
+  end
+
+  def classification
+    harvest_task.api_task_name
   end
 end
