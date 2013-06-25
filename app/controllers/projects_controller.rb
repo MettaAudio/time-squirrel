@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
       @tasks = Task.all
     else
       @projects = Project.with_tasks
-      @tasks = Task.active.all
+      @tasks = Task.active
     end
 
     respond_to do |format|
@@ -23,6 +23,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    if params[:show] == 'all'
+      @tasks = @project.tasks
+    else
+      @tasks = @project.tasks.active
+    end
 
     respond_to do |format|
       format.html # show.html.erb
