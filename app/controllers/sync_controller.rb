@@ -13,8 +13,8 @@ before_filter :authenticate_user!
     if HarvestSynchronizer.new(current_user).sync
       unlinked_project = HarvestProject.without_ts_project
       if unlinked_project.count != 0
-        @project = unlinked_project.first
-        render edit_project_path(@project)
+        @harvest_project = unlinked_project.first
+        redirect_to edit_harvest_project_path(@harvest_project)
       else
         redirect_to :back, notice: 'All Harvest projects and tasks synchronized!'
       end

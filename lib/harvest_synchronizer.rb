@@ -23,7 +23,7 @@ class HarvestSynchronizer
 
   def sync_tasks
     current_tasks.each do |task|
-      harvest_task = HarvestTask.find_or_create_by_api_task_id(:api_task_id)
+      harvest_task = HarvestTask.find_or_create_by_api_task_id_and_harvest_project_id(task[:api_task_id], task[:harvest_project_id])
       harvest_task.update_attributes(task)
     end
   end
@@ -33,8 +33,9 @@ class HarvestSynchronizer
 
     daily_xml.css("project").each do |xml_project|
       attributes = {}
-      attributes[:api_project_name] = xml_project.css('name').first.text
-      attributes[:api_project_id]   = xml_project.css('id').first.text
+        attributes[:api_project_name] = xml_project.css('name').first.text
+        attributes[:api_project_id]   = xml_project.css('id').first.text
+        attributes[:api_client_name]  = xml_project.css("client").first.text
       array_of_projects << attributes
     end
     array_of_projects
@@ -47,8 +48,8 @@ class HarvestSynchronizer
       xml_project.css("task").each do |task|
         attributes = {}
         attributes[:harvest_project_id] = find_harvest_project(xml_project).try(:id)
-        attributes[:api_task_name] = task.css("name").text
-        attributes[:api_task_id]   = task.css("id").text
+        attributes[:api_task_name]      = task.css("name").text
+        attributes[:api_task_id]        = task.css("id").text
         array_of_tasks << attributes
       end
     end

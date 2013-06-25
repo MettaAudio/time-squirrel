@@ -2,8 +2,8 @@ TimeSquirrel::Application.routes.draw do
 
   resources :projects
   resources :tasks
-  resources :timers, :expect => [:new, :index]
-  resources :harvest_projects
+  resources :timers, :expect => [:new, :create, :index]
+  resources :harvest_projects, :expect => [:new, :create]
 
   match "weekly_total" => "home#weekly", :as => :weekly
   match "daily_total" => "home#daily", :as => :daily

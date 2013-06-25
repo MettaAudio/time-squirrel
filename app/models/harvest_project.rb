@@ -1,5 +1,5 @@
 class HarvestProject < ActiveRecord::Base
-  attr_accessible :api_project_id, :api_project_name, :project_id
+  attr_accessible :api_project_id, :api_project_name, :project_id, :api_client_name
 
   has_many :harvest_tasks
   belongs_to :project

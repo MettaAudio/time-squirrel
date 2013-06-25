@@ -4,6 +4,7 @@
     <tr>
       <th>API ID</th>
       <th>API Project Name</th>
+      <th>API Client Name</th>
       <th>Time Squirrel Project</th>
       <th></th>
       <th></th>
@@ -14,6 +15,7 @@
       <tr>
         <td><%= project.api_project_id %></td>
         <td><%= project.api_project_name %></td>
+        <td><%= project.api_client_name %></td>
         <td><%= project.project ? project.project.title : 'No project associated' %></td>
         <td class='task'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_harvest_project_path(project) %></td>
         <td class='task'><%= link_to '<i class="icon-trash"></i> '.html_safe, project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
