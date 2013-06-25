@@ -25,6 +25,7 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
+    @harvest_tasks = HarvestTask.all.collect{ |t| ["#{t.harvest_project.api_client_name} :: #{t.api_task_name}", t.id]}
 
     respond_to do |format|
       format.html # new.html.erb

@@ -2,7 +2,7 @@ class SyncController < ApplicationController
 before_filter :authenticate_user!
 
   def sync_jira_tasks
-    if JiraSynchronizer.new({:current_user => current_user}).sync
+    if JiraSynchronizer.new(current_user).sync
       redirect_to :back, notice: 'All tasks synchronized!'
     else
       redirect_to :back, alert: 'There was a problem synchronizing your tasks. Please try again.'

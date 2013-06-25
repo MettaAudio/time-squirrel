@@ -88,6 +88,6 @@ class Task < ActiveRecord::Base
   end
 
   def classification
-    harvest_task.api_task_name
+    harvest_task.try(:api_task_name)
   end
 end
