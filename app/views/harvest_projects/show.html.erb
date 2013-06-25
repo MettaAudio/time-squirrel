@@ -1,0 +1,6 @@
+<h1>Harvest Projects</h1>
+<% @harvest_projects.each do |project| %>
+  <h2><%= project.api_project_name %></h2>
+  <h4>Harvest API Project ID <small> <%= project.api_project_id %></small></h4>
+  <h4>Time Squirrel Project <small><%= project.project ? project.project.title : 'No project associated' %></small></h4>
+<% end %>

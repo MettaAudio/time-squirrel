@@ -1,0 +1,12 @@
+<%= simple_form_for(@harvest_project) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <p>This Harvest Project needs to be associated with a Time Squirrel Project</p>
+    <%= f.select :project_id, @projects, :prompt => 'Please select one' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Save' %>
+  </div>
+<% end %>

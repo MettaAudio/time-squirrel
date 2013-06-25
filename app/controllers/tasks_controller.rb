@@ -80,16 +80,4 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def sync_tasks
-    if !current_user
-      redirect_to new_user_session_path, notice: 'You must be logged in to sync tasks with Jira'
-    else
-      if Synchronizer.new(current_user).sync
-        redirect_to :back, notice: 'All tasks synchronized!'
-      else
-        redirect_to :back, error: 'There was a problem synchronizing your tasks. Please try again.'
-      end
-    end
-  end
 end

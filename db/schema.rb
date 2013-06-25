@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612132633) do
+ActiveRecord::Schema.define(:version => 20130623043407) do
+
+  create_table "harvest_projects", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "api_project_name"
+    t.integer  "api_project_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "harvest_tasks", :force => true do |t|
+    t.integer  "harvest_project_id"
+    t.string   "api_task_name"
+    t.integer  "api_task_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "code"
