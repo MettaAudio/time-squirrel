@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
   scope :active, -> { where('active == ?', true) }
   scope :with_timers, joins(:timers).group('id')
   scope :with_timers_on_day, ->(day) { joins(:timers).where('timers.start_time >= ? and timers.start_time <= ?',day.beginning_of_day, day.end_of_day ).group('tasks.id').order('project_id') }
+  scope :without_harvest_task, -> { where('harvest_task_id IS NULL')}
 
   delegate :api_task_id, :to => :harvest_task
 

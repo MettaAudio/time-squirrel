@@ -60,13 +60,16 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-    respond_to do |format|
       if @task.update_attributes(params[:task])
-        format.html { redirect_to projects_path, notice: 'Task was successfully updated.' }
-        format.json { head :no_content }
+        unlinked_task = Task.without_harvest_task
+        if unlinked_task.count != 0
+          @task = unlinked_task.first
+          redirect_to edit_task_path(@task), alert: "While you're updating tasks, here is a task that need to be associated with a Harvest Project"
+        else
+          redirect_to projects_path, notice: 'Task was successfully updated.'
+        end
       else
-        format.html { render action: "edit" }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        render action: "edit"
       end
     end
   end
