@@ -4,7 +4,7 @@
       <th>Timer</th>
       <th>Issue</th>
       <th>Summary</th>
-      <th>Week</th>
+      <th>Total</th>
       <th></th>
       <th></th>
       <th></th>
@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
+    <% tasks.each do |task| %>
     <% next if task.project_id != project.id %>
       <tr>
         <% if task.running_timer? %>
@@ -22,7 +22,11 @@
         <% end %>
         <td class='issue'><%= task.issue_id.present? ? link_to(task.issue_id, "https://railsdog.atlassian.net/browse/#{task.issue_id}", html_options = {:target => '_blank'}).html_safe : '' %></td>
         <td><%= link_to task.summary, task %></td>
-        <td class='timer'><%= formatted_duration(task.timers.total_time_this_week) %></td>
+        <% if @date %>
+          <td class='timer'><%= formatted_duration(task.total_time_on_day(@date)) %></td>
+        <% else %>
+          <td class='timer'><%= formatted_duration(task.total_time) %></td>
+        <% end %>
         <td class='task'><%= link_to '<i class="icon-file"></i> '.html_safe, task %></td>
         <td class='task'><%= link_to '<i class="icon-pencil"></i> '.html_safe, edit_task_path(task) %></td>
         <td class='task'><%= link_to '<i class="icon-trash"></i> '.html_safe, task, method: :delete, data: { confirm: 'Are you sure?' } %></td>

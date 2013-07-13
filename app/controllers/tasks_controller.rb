@@ -60,17 +60,16 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-      if @task.update_attributes(params[:task])
-        unlinked_task = Task.without_harvest_task
-        if unlinked_task.count != 0
-          @task = unlinked_task.first
-          redirect_to edit_task_path(@task), alert: "While you're updating tasks, here is a task that need to be associated with a Harvest Project"
-        else
-          redirect_to projects_path, notice: 'Task was successfully updated.'
-        end
+    if @task.update_attributes(params[:task])
+      unlinked_task = Task.without_harvest_task
+      if unlinked_task.count != 0
+        @task = unlinked_task.first
+        redirect_to edit_task_path(@task), alert: "While you're updating tasks, here is a task that need to be associated with a Harvest Project"
       else
-        render action: "edit"
+        redirect_to projects_path, notice: 'Task was successfully updated.'
       end
+    else
+      render action: "edit"
     end
   end
 
