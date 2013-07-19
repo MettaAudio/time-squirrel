@@ -2,7 +2,16 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.with_tasks
+    if params[:show] == 'all'
+      @projects = Project.all
+      @tasks = Task.all
+    elsif params[:show] == 'inactive'
+      @projects = Project.with_tasks
+      @tasks = Task.all
+    else
+      @projects = Project.with_tasks
+      @tasks = Task.active
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +23,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    if params[:show] == 'all'
+      @tasks = @project.tasks
+    else
+      @tasks = @project.tasks.active
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -60,8 +74,15 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { head :no_content }
+        unlinked_project = HarvestProject.without_ts_project
+
+        if unlinked_project.count != 0
+          @project = unlinked_project.first
+          render edit_project_path(@project)
+        else
+          format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+          format.json { head :no_content }
+        end
       else
         format.html { render action: "edit" }
         format.json { render json: @project.errors, status: :unprocessable_entity }

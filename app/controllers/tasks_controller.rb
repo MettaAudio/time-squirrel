@@ -25,6 +25,7 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
     @task = Task.new
+    @harvest_tasks = HarvestTask.all.collect{ |t| ["#{t.harvest_project.api_client_name} :: #{t.api_task_name}", t.id]}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
+    @harvest_tasks = @task.harvest_project_tasks.collect{ |t| [t.api_task_name, t.id]}
   end
 
   # POST /tasks
@@ -58,14 +60,16 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-    respond_to do |format|
-      if @task.update_attributes(params[:task])
-        format.html { redirect_to projects_path, notice: 'Task was successfully updated.' }
-        format.json { head :no_content }
+    if @task.update_attributes(params[:task])
+      unlinked_task = Task.without_harvest_task
+      if unlinked_task.count != 0
+        @task = unlinked_task.first
+        redirect_to edit_task_path(@task), alert: "While you're updating tasks, here is a task that need to be associated with a Harvest Project"
       else
-        format.html { render action: "edit" }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        redirect_to projects_path, notice: 'Task was successfully updated.'
       end
+    else
+      render action: "edit"
     end
   end
 
@@ -78,18 +82,6 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
-    end
-  end
-
-  def sync_tasks
-    if !current_user
-      redirect_to new_user_session_path, notice: 'You must be logged in to sync tasks with Jira'
-    else
-      if Synchronizer.new(current_user).sync
-        redirect_to :back, notice: 'All tasks synchronized!'
-      else
-        redirect_to :back, error: 'There was a problem synchronizing your tasks. Please try again.'
-      end
     end
   end
 end

@@ -1,4 +1,4 @@
-class Synchronizer
+class JiraSynchronizer
   attr_reader :current_user
 
   def initialize(current_user)

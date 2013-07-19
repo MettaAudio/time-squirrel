@@ -40,33 +40,13 @@
   </div>
 </div>
 
+<p><%= link_to 'Push to Harvest', push_harvest_entries_path(:date => @date), :class => 'btn btn-primary'  %></p>
+
+<hr>
+
 <% @projects.each do |project| %>
-<% next if project.tasks.collect { |t| t if t.total_time_on_day(@date) > 0 }.compact.count == 0 %>
-  <h4><%= project.title %></h4>
-  <table class="table table-striped">
-
-    <thead>
-      <tr>
-        <th>Issue ID</th>
-        <th>Classification</th>
-        <th>Task</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% project.tasks.each do |task| %>
-      <% next if task.total_time_on_day(@date) == 0.0 %>
-        <tr>
-          <td class='timer'><%= task.issue_id %></td>
-          <td class='project'><%= task.classification %></td>
-          <td><%= task.summary %></td>
-          <td class='timer'><%= formatted_duration(task.total_time_on_day(@date)) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-
-  </table>
-  <p>&nbsp;</p>
+<% next if project.tasks.with_timers_on_day(@date).blank? %>
+  <h3><%= link_to project.title, project_path(project) %> <small><%= project.code %></small></h3>
+  <%= render partial: "shared/tasks_table", :locals => { :project => project, :tasks => project.tasks.with_timers_on_day(@date) } %>
   <p>&nbsp;</p>
 <% end %>

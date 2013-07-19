@@ -1,11 +1,16 @@
 class Task < ActiveRecord::Base
-  attr_accessible :issue_id, :summary, :project_id, :classification, :active
+  attr_accessible :issue_id, :summary, :project_id, :active, :harvest_task_id
   has_many :timers
   belongs_to :project
-  validate :issue_id, :summary, :classification, :presence => true
+  belongs_to :harvest_task
+  validate :issue_id, :summary, :presence => true
 
   scope :active, -> { where('active == ?', true) }
   scope :with_timers, joins(:timers).group('id')
+  scope :with_timers_on_day, ->(day) { joins(:timers).where('timers.start_time >= ? and timers.start_time <= ?',day.beginning_of_day, day.end_of_day ).group('tasks.id').order('project_id') }
+  scope :without_harvest_task, -> { where('harvest_task_id IS NULL')}
+
+  delegate :api_task_id, :to => :harvest_task
 
   def running_timers
     timers.where("start_time IS NOT NULL and end_time IS NULL")
@@ -73,5 +78,17 @@ class Task < ActiveRecord::Base
     end
 
     total
+  end
+
+  def harvest_project_tasks
+    project.harvest_project.harvest_tasks
+  end
+
+  def harvest_project_api_id
+    harvest_task.harvest_project.api_project_id
+  end
+
+  def classification
+    harvest_task.try(:api_task_name)
   end
 end
