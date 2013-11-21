@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
       @projects = Project.with_tasks
       @tasks = Task.all
     else
-      @projects = Project.with_tasks
+      @projects = Project.active.with_tasks
       @tasks = Task.active
     end
 
