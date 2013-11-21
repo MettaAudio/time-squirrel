@@ -13,7 +13,18 @@ module ApplicationHelper
   end
 
   def formatted_duration(elapsed_time)
-    elapsed_time.present? ? Time.at(elapsed_time).utc.strftime("%H:%M") : '-'
+    elapsed_time.present? ? display_time(elapsed_time) : '-'
+  end
+
+  def display_time(elapsed_time)
+    elapsed_time = elapsed_time.to_i
+    hours = elapsed_time/60/60
+    minutes = format_minutes(elapsed_time/60 - hours*60)
+    "#{hours}:#{minutes}"
+  end
+
+  def format_minutes(elapsed_time)
+    elapsed_time < 10 ? "#{elapsed_time}".rjust(2,'0') : elapsed_time
   end
 
   def day_hour_minute(time)
