@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
   def index
     @total_time = Timer.total_time_this_week
+    @week_percent_complete = ((((@total_time/60.0)/60.0) * 85.0)/2500.0)*100
+    @total_time_this_month = Timer.total_time_this_month
+    @month_percent_complete = ((((@total_time_this_month/60.0)/60.0) * 85.0)/10000.0)*100
   end
 
   def daily

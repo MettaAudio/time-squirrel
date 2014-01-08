@@ -1,9 +1,50 @@
-<h2>Dashboard</h2>
-<h3>This week:</h3>
-<div class="span3 well">
-  <p class='lead'>Total Time: <%= formatted_duration(@total_time) %></p>
+<div class="row">
+  <div class="span12">
+    <h2>Dashboard</h2>
+  </div>
 </div>
 
-<div class="span3 well">
-  <p class='lead'>Total Value: <%= number_to_currency(((@total_time/60.0)/60.0) * 85.0) %></p>
+<div class="row">
+  <div class="span12">
+    <h3>This week:</h3>
+  </div>
+  <div class="span3 well">
+    <p class='lead'>Total Time: <%= formatted_duration(@total_time) %></p>
+  </div>
+
+  <div class="span3 well">
+    <p class='lead'>Total Value: <%= number_to_currency(((@total_time/60.0)/60.0) * 85.0) %></p>
+  </div>
+
+  <div class="span8 well">
+    <p class='lead'>Weekly Percent Complete</p>
+    <div class='percentage' style='width:<%= @week_percent_complete %>%'>
+      <span style='padding-left:50%'>
+        <%= number_to_percentage(@week_percent_complete, :precision => 0) %>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span12">
+    <h3>This month:</h3>
+  </div>
+
+  <div class="span3 well">
+    <p class='lead'>Total Time: <%= formatted_duration(@total_time_this_month) %></p>
+  </div>
+
+  <div class="span3 well">
+    <p class='lead'>Total Value: <%= number_to_currency(((@total_time_this_month/60.0)/60.0) * 85.0) %></p>
+  </div>
+
+  <div class="span8 well">
+    <p class='lead'>Monthly Percent Complete</p>
+    <div class='percentage' style='width:<%= @month_percent_complete %>%'>
+      <span style='padding-left:50%'>
+        <%= number_to_percentage(@month_percent_complete, :precision => 0) %>
+      </span>
+    </div>
+  </div>
 </div>
