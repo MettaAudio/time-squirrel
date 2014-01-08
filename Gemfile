@@ -21,7 +21,6 @@ group :production do
   gem 'pg'
 end
 
-gem 'heroku'
 gem 'jquery-rails'
 gem "unicorn", ">= 4.3.1"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
