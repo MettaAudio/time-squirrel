@@ -18,9 +18,14 @@
 
   <div class="span8 well">
     <p class='lead'>Weekly Percent Complete</p>
-    <div class='percentage' style='width:<%= @week_percent_complete %>%'>
+    <div class='percentage positive' style='width:<%= @week_percent_complete %>%'>
       <span style='padding-left:50%'>
         <%= number_to_percentage(@week_percent_complete, :precision => 0) %>
+      </span>
+    </div>
+    <div class='percentage compare <%= ahead_of_weekly_goal? ? "green" : "red" %>' style='width:<%= weekly_time_percentage %>%'>
+      <span style='padding-left:50%'>
+        <%= number_to_percentage(weekly_time_percentage, :precision => 0) %>
       </span>
     </div>
   </div>
@@ -41,9 +46,14 @@
 
   <div class="span8 well">
     <p class='lead'>Monthly Percent Complete</p>
-    <div class='percentage' style='width:<%= @month_percent_complete %>%'>
+    <div class='percentage positive' style='width:<%= @month_percent_complete %>%'>
       <span style='padding-left:50%'>
         <%= number_to_percentage(@month_percent_complete, :precision => 0) %>
+      </span>
+    </div>
+    <div class='percentage compare <%= ahead_of_monthly_goal? ? "green" : "red" %>' style='width:<%= monthly_time_percentage %>%'>
+      <span style='padding-left:50%'>
+        <%= number_to_percentage(monthly_time_percentage, :precision => 0) %>
       </span>
     </div>
   </div>

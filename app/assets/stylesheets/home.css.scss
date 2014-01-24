@@ -1,10 +1,25 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$positive-color: #45A697;
+$negative-color: #BD3C51;
 
 div.percentage {
   height: 25px;
   font-size: 18px;
   color: white;
-  background-color: green;
+  &.compare {
+    &.red {
+      background-color: transparentize($negative-color, 0.45);
+    }
+
+    &.green {
+      background-color: transparentize($positive-color, 0.45);
+    }
+    margin-top: 25px;
+  }
+
+  &.positive {
+      background-color: $positive-color;
+  }
 }
