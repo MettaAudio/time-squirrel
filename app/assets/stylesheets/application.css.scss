@@ -12,6 +12,8 @@
  *= require_tree .
 */
 
+@import 'variables';
+
 .content {
   background-color: #fff;
   padding: 20px;
@@ -23,10 +25,6 @@
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
-
-$date: #E2D7FF;
-$time: #FFEAD5;
-$double_digit: 55px;
 
 .timer_end_time .controls, .timer_start_time .controls {
   :first-child {
@@ -60,7 +58,7 @@ $double_digit: 55px;
     padding-top: 2px;
     z-index: 100;
     position: absolute;
-    background-color: green;
+    background-color: $positive-color;
     list-style-type: none;
     text-align: center;
     opacity: .65;

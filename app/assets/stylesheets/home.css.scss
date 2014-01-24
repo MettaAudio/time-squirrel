@@ -1,8 +1,8 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-$positive-color: #45A697;
-$negative-color: #BD3C51;
+
+@import 'variables';
 
 div.percentage {
   height: 25px;
