@@ -5,7 +5,7 @@
     <%= f.input :project_id, collection: Project.all %>
     <%= f.input :issue_id %>
     <%= f.input :summary %>
-    <%= f.select :harvest_task_id, @harvest_tasks, :prompt => 'Please choose one' %>
+    <%= f.select :harvest_task_id, @harvest_tasks, :prompt => 'Please choose one' if @harvest_tasks %>
     <%= f.input :active %>
   </div>
 

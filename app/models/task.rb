@@ -81,7 +81,7 @@ class Task < ActiveRecord::Base
   end
 
   def harvest_project_tasks
-    project.harvest_project.harvest_tasks
+    project.harvest_project.try(:harvest_tasks)
   end
 
   def harvest_project_api_id

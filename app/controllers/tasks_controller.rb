@@ -36,7 +36,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
-    @harvest_tasks = @task.harvest_project_tasks.collect{ |t| [t.api_task_name, t.id]}
+    @harvest_tasks = @task.harvest_project_tasks.collect{ |t| [t.api_task_name, t.id]} if @task.harvest_project_tasks.present?
   end
 
   # POST /tasks
